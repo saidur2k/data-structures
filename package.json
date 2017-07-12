@@ -1,0 +1,10 @@
+{
+  "name": "data-structures",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Saidur Rahman <saidur2k@hotmail.com> (http://rudias.com/)",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^20.0.4"
+  }
+}
