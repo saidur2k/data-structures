@@ -26,6 +26,6 @@
     "build": "babel src -d ./dist",
     "node-inspector": "node-inspector",
     "test": "jest ./src",
-    "test:debug": "node --inspect --inspect-brk ./node_modules/.bin/jest --runInBand -i"
+    "test:debug": "node --inspect --inspect-brk ./node_modules/.bin/jest --runInBand -i --env jest-environment-node-debug"
   }
 }
