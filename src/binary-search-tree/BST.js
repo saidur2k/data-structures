@@ -81,28 +81,100 @@ class BST {
     if (typeof this.root === 'object') {
       let current: ?Node = this.root;
       while (current) {
-        if (typeof current === 'object') {
-          if (typeof current.data === 'number') {
-            if (data === current.data) {
-              return true;
+        if (typeof current.data === 'number') {
+          if (data === current.data) {
+            return true;
+          }
+
+          if (current === null) {
+            return false;
+          }
+
+          if (typeof current.left === 'object' && data < current.data) {
+            if (current.left === null) {
+              return false;
+            }
+            if (data < current.data) {
+              current = current.left;
+            }
+          }
+          if (data === current.data) {
+            return true;
+          }
+          if (typeof current.right === 'object' && data > current.data) {
+            if (current.right === null) {
+              return false;
             }
 
-            if (typeof current.left === 'object') {
-              if (data < current.data) {
-                current = current.left;
-              }
+            if (data > current.data) {
+              current = current.right;
             }
-
-            if (typeof current.right === 'object') {
-              if (data > current.data) {
-                current = current.right;
-              }
-            }
+          }
+          if (data === current.data) {
+            return true;
           }
         }
       }
     }
     return false;
+  }
+
+  remove(data: number): void {
+    this.removeNode(this.root, data);
+  }
+
+  removeNode(nodeOnFocus: Node, data: number): ?Node {
+    const node: Node = nodeOnFocus;
+    if (node === null) {
+      return null;
+    }
+    if (
+      typeof node.data === 'number' &&
+      typeof node.left === 'object' &&
+      typeof node.right === 'object'
+    ) {
+      if (data === node.data) {
+        if (node.left === null && node.right === null) {
+          return null;
+        }
+
+        if (node.left === null) {
+          return node.right;
+        }
+
+        if (node.right === null) {
+          return node.left;
+        }
+
+        // two childs
+        let tempNode = node.right;
+        if (typeof tempNode === 'object') {
+          while (tempNode.left !== null) {
+            tempNode = tempNode.left;
+          }
+
+          node.data = tempNode.data;
+          if (typeof node.right === 'object') {
+            node.right = this.removeNode(node.right, tempNode.data);
+            return node;
+          }
+        }
+      } else if (data < node.data) {
+        if (node.left === null) {
+          return null;
+        }
+        node.left = this.removeNode(node.left, data);
+        return node;
+      } else {
+        if (node.right === null) {
+          return null;
+        }
+        node.right = this.removeNode(node.right, data);
+        return node;
+      }
+    }
+
+    return null;
   }
 }
 export default BST;

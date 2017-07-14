@@ -88,3 +88,26 @@ test('I can find items in my tree', () => {
   expect(myBinaryTree.isPresent(42)).toEqual(false);
   expect(myBinaryTree.isPresent(43)).toEqual(false);
 });
+
+test('I can remove items in my tree', () => {
+  const myBinaryTree = new BST();
+  myBinaryTree.add(4);
+  myBinaryTree.add(2);
+  myBinaryTree.add(6);
+  myBinaryTree.add(1);
+  myBinaryTree.add(3);
+  myBinaryTree.add(5);
+  myBinaryTree.add(7);
+  expect(myBinaryTree.isPresent(4)).toEqual(true);
+  myBinaryTree.remove(4);
+  expect(myBinaryTree.isPresent(4)).toEqual(false);
+  expect(myBinaryTree.findMax()).toEqual(7);
+  expect(myBinaryTree.findMin()).toEqual(1);
+  myBinaryTree.remove(7);
+  expect(myBinaryTree.isPresent(1)).toEqual(true);
+  expect(myBinaryTree.findMax()).toEqual(6);
+  expect(myBinaryTree.isPresent(7)).toEqual(false);
+  myBinaryTree.remove(1);
+  expect(myBinaryTree.findMin()).toEqual(2);
+  expect(myBinaryTree.isPresent(1)).toEqual(false);
+});
