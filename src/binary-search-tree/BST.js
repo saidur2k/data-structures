@@ -1,54 +1,79 @@
+// @flow
 import Node from './Node';
 
 class BST {
-  constructor() {
-    this.root = null;
-    this.searchTree = this.searchTree.bind(this);
-    this.findMin = this.findMin.bind(this);
-  }
+  root: Node = new Node(null);
 
-  searchTree(data, nodeOnFocus) {
-    const node = nodeOnFocus;
-    if (data < node.data) {
-      if (node.left === null) {
-        return (node.left = new Node(data));
+  searchTree(data: number, nodeOnFocus: Node) {
+    const node: Node = nodeOnFocus;
+    if (typeof node.data === 'number') {
+      if (data < node.data) {
+        if (node.left === null) {
+          return (node.left = new Node(data));
+        }
+
+        if (typeof node.left === 'object') {
+          return this.searchTree(data, node.left);
+        }
+      } else if (data > node.data) {
+        if (node.right === null) {
+          return (node.right = new Node(data));
+        }
+
+        if (typeof node.right === 'object') {
+          return this.searchTree(data, node.right);
+        }
       }
-      return this.searchTree(data, node.left);
-    } else if (data > node.data) {
-      if (node.right === null) {
-        return (node.right = new Node(data));
-      }
-      return this.searchTree(data, node.right);
     }
     return null;
   }
 
-  add(data) {
-    if (this.root === null) {
+  add(data: number) {
+    if (this.root.data === null) {
       return (this.root = new Node(data));
     }
     return this.searchTree(data, this.root);
   }
 
-  findMin() {
-    let current = this.root;
-    while (current.left !== null) {
-      current = current.left;
+  findMin(): ?number {
+    if (typeof this.root === 'object') {
+      let current: Node = this.root;
+      const currentData: ?number = current.data;
+      if (currentData === null) {
+        return null;
+      }
+      if (typeof current.left === 'object') {
+        while (current.left !== null) {
+          current = current.left;
+        }
+        return current.data;
+      }
+      return currentData;
     }
 
-    return current.data;
+    return null;
   }
 
-  findMax() {
-    let current = this.root;
-
-    while (current.right !== null) {
-      current = current.right;
+  findMax(): ?number {
+    if (typeof this.root === 'object') {
+      let current: Node = this.root;
+      const currentData: ?number = current.data;
+      if (currentData === null) {
+        return null;
+      }
+      if (typeof current.right === 'object') {
+        while (current.right !== null) {
+          current = current.right;
+        }
+        return current.data;
+      }
+      return currentData;
     }
-    return current.data;
+
+    return null;
   }
 
-  getRoot() {
+  getRoot(): Node {
     return this.root;
   }
 }

@@ -1,3 +1,4 @@
+// @flow
 import BST from './BST';
 
 test('I can add a root node', () => {
@@ -18,6 +19,17 @@ test('I can add a root node with a left child', () => {
 });
 
 test('I can add a root node with a right child', () => {
+  const myBinaryTree = new BST();
+  myBinaryTree.add(15);
+  myBinaryTree.add(50);
+  expect(myBinaryTree.getRoot()).toEqual({
+    data: 15,
+    left: null,
+    right: { data: 50, left: null, right: null },
+  });
+});
+
+test('I can add a root node with a both childs', () => {
   const myBinaryTree = new BST();
   myBinaryTree.add(50);
   myBinaryTree.add(15);
@@ -43,7 +55,6 @@ test('I can find the minimum child v2', () => {
   myBinaryTree.add(15);
   myBinaryTree.add(60);
   myBinaryTree.add(1);
-
   expect(myBinaryTree.findMin()).toEqual(1);
 });
 
@@ -53,4 +64,13 @@ test('I can find the maximum child', () => {
   myBinaryTree.add(15);
   myBinaryTree.add(60);
   expect(myBinaryTree.findMax()).toEqual(60);
+});
+
+test('I can find the maximum child', () => {
+  const myBinaryTree = new BST();
+  myBinaryTree.add(50);
+  myBinaryTree.add(15);
+  myBinaryTree.add(60);
+  myBinaryTree.add(70);
+  expect(myBinaryTree.findMax()).toEqual(70);
 });
