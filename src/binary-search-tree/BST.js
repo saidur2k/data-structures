@@ -76,5 +76,33 @@ class BST {
   getRoot(): Node {
     return this.root;
   }
+
+  isPresent(data: number): boolean {
+    if (typeof this.root === 'object') {
+      let current: ?Node = this.root;
+      while (current) {
+        if (typeof current === 'object') {
+          if (typeof current.data === 'number') {
+            if (data === current.data) {
+              return true;
+            }
+
+            if (typeof current.left === 'object') {
+              if (data < current.data) {
+                current = current.left;
+              }
+            }
+
+            if (typeof current.right === 'object') {
+              if (data > current.data) {
+                current = current.right;
+              }
+            }
+          }
+        }
+      }
+    }
+    return false;
+  }
 }
 export default BST;

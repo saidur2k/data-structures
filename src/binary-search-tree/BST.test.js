@@ -74,3 +74,17 @@ test('I can find the maximum child', () => {
   myBinaryTree.add(70);
   expect(myBinaryTree.findMax()).toEqual(70);
 });
+
+test('I can find items in my tree', () => {
+  const myBinaryTree = new BST();
+  myBinaryTree.add(50);
+  myBinaryTree.add(15);
+  myBinaryTree.add(60);
+  myBinaryTree.add(70);
+  expect(myBinaryTree.isPresent(15)).toEqual(true);
+  expect(myBinaryTree.isPresent(60)).toEqual(true);
+  expect(myBinaryTree.isPresent(70)).toEqual(true);
+  expect(myBinaryTree.isPresent(50)).toEqual(true);
+  expect(myBinaryTree.isPresent(42)).toEqual(false);
+  expect(myBinaryTree.isPresent(43)).toEqual(false);
+});
