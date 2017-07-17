@@ -49,10 +49,107 @@ class BSTwithOrder extends BST {
     return this.findMinHeight() >= this.findMaxHeight() - 1;
   }
 
-  displayTree(tree: Node = this.root): void {
-    /* eslint-disable no-console */
-    console.log(JSON.stringify(tree, null, 2));
-    /* eslint-enable no-console */
+  inOrder(): Array<?number> | null {
+    if (this.root === null) {
+      return null;
+    }
+    const result = [];
+    const traverseInOrder = (node) => {
+      if (node === null) {
+        return;
+      }
+
+      if (typeof node.left !== 'undefined' && node.left) {
+        traverseInOrder(node.left);
+      }
+
+      result.push(node.data);
+
+      if (typeof node.right !== 'undefined' && node.right) {
+        traverseInOrder(node.right);
+      }
+    };
+
+    traverseInOrder(this.root);
+
+    return result;
+  }
+
+  preOrder(): Array<?number> | null {
+    if (this.root === null) {
+      return null;
+    }
+    const result = [];
+    const traverseInOrder = (node) => {
+      if (node === null) {
+        return;
+      }
+
+      result.push(node.data);
+
+      if (typeof node.left !== 'undefined' && node.left) {
+        traverseInOrder(node.left);
+      }
+
+      if (typeof node.right !== 'undefined' && node.right) {
+        traverseInOrder(node.right);
+      }
+    };
+
+    traverseInOrder(this.root);
+
+    return result;
+  }
+
+  postOrder(): Array<?number> | null {
+    if (this.root === null) {
+      return null;
+    }
+    const result = [];
+    const traverseInOrder = (node) => {
+      if (node === null) {
+        return;
+      }
+
+      if (typeof node.left !== 'undefined' && node.left) {
+        traverseInOrder(node.left);
+      }
+
+      if (typeof node.right !== 'undefined' && node.right) {
+        traverseInOrder(node.right);
+      }
+
+      result.push(node.data);
+    };
+
+    traverseInOrder(this.root);
+
+    return result;
+  }
+
+  levelOrder(): Array<?number> | null {
+    const result = [];
+    const Q = [];
+    if (this.root !== null) {
+      Q.push(this.root);
+
+      while (Q.length > 0) {
+        const node = Q.shift();
+
+        result.push(node.data);
+
+        if (node.left != null) {
+          Q.push(node.left);
+        }
+
+        if (node.right != null) {
+          Q.push(node.right);
+        }
+      }
+
+      return result;
+    }
+    return null;
   }
 }
 
