@@ -134,19 +134,26 @@ class BST {
       typeof node.right === 'object'
     ) {
       if (data === node.data) {
+        // node has no children
         if (node.left === null && node.right === null) {
           return null;
         }
 
+        // node has no left child
         if (node.left === null) {
           return node.right;
         }
 
+        // node has no right child
         if (node.right === null) {
           return node.left;
         }
 
-        // two childs
+        // node has two child
+
+        // step: 1 - go to the rigth subnode
+        // step: 2 - then the left most subnode from the right subnode
+        // step: 3 - swap the node to remove with the left most subnode
         let tempNode = node.right;
         if (typeof tempNode === 'object') {
           while (tempNode.left !== null) {
