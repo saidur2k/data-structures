@@ -1,4 +1,4 @@
-import LinkedList, { Node } from './LinkedList';
+import LinkedList from './LinkedList';
 
 test('Can add to LinkedList', () => {
   const list = new LinkedList();
@@ -40,4 +40,39 @@ test('Throws error when trying to remove from an empty list', () => {
   }
   expect(expectErrorToBeThrown).toThrowError('Cannot remove element from empty list');
   expect(conga.isEmpty()).toBe(true);
+});
+
+test('Can show the indexOf element', () => {
+  const list = new LinkedList();
+  list.add(1);
+  list.add(5);
+  list.add(2);
+  list.add(0);
+
+  expect(list.indexOf(2)).toEqual(2);
+  expect(list.indexOf(5)).toEqual(1);
+  expect(list.indexOf(1)).toEqual(0);
+  expect(list.indexOf(0)).toEqual(3);
+});
+
+test('Can show the element at index', () => {
+  const list = new LinkedList();
+  function expectErrorToBeThrown() {
+    list.elementAt(0);
+  }
+  expect(expectErrorToBeThrown).toThrowError();
+
+  list.add(1);
+  list.add(5);
+  list.add(2);
+  list.add(0);
+
+  expect(list.elementAt(0)).toEqual(1);
+  expect(list.elementAt(1)).toEqual(5);
+  expect(list.elementAt(2)).toEqual(2);
+  expect(list.elementAt(3)).toEqual(0);
+  function expectErrorToBeThrownAgain() {
+    list.elementAt(4);
+  }
+  expect(expectErrorToBeThrownAgain).toThrowError();
 });

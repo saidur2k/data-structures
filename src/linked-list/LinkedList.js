@@ -66,10 +66,44 @@ class LinkedList {
     }
   }
 
-  isEmpty() {
+  isEmpty(): boolean {
     return this.length === 0;
+  }
+
+  indexOf(element: number): number {
+    let index = -1;
+    let currentNode = this.head;
+
+    while (currentNode) {
+      index += 1;
+      if (currentNode.element === element) {
+        return index;
+      }
+      currentNode = currentNode.next;
+    }
+    return -1;
+  }
+
+  elementAt(index: number): number {
+    let currentNode = this.head;
+    let count = 0;
+    if (index > this.size() - 1 && this.size() > 0) {
+      throw new Error('Index exceeds List length');
+    }
+    while (count < index) {
+      count += 1;
+
+      if (currentNode && currentNode.next) {
+        currentNode = currentNode.next;
+      }
+    }
+
+    if (currentNode && (currentNode.element || currentNode.element === 0)) {
+      return currentNode.element;
+    }
+
+    throw new Error('Element not found at index');
   }
 }
 
 export default LinkedList;
-export { Node };
