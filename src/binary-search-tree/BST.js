@@ -1,6 +1,14 @@
 // @flow
 import Node from './Node';
 
+/*
+Binary search time complexity
+║ Algorithm ║ Average  ║ Worst Case ║
+║ Space     ║ O(n)     ║ O(n)       ║
+║ Search    ║ O(log n) ║ O(n)       ║
+║ Insert    ║ O(log n) ║ O(n)       ║
+║ Delete    ║ O(log n) ║ O(n)       ║
+*/
 class BST {
   root: Node = new Node(null);
 
