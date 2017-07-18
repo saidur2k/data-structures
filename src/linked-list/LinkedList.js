@@ -104,6 +104,38 @@ class LinkedList {
 
     throw new Error('Element not found at index');
   }
+
+  addAt(index: number, element: number): void {
+    const nodeToAdd: Node = new Node(element);
+    let currentNode: ?Node = this.head;
+    let previousNode: ?Node;
+    let currentIndex: number = 0;
+
+    if (index > this.length) {
+      return;
+    }
+
+    if (index === 0) {
+      nodeToAdd.next = currentNode;
+      this.head = nodeToAdd;
+      this.length += 1;
+    } else {
+      while (currentIndex < index) {
+        currentIndex += 1;
+        previousNode = currentNode;
+        if (currentNode && currentNode.next) {
+          currentNode = currentNode.next;
+        }
+      }
+
+      nodeToAdd.next = currentNode;
+
+      if (previousNode && previousNode.next) {
+        previousNode.next = nodeToAdd;
+        this.length += 1;
+      }
+    }
+  }
 }
 
 export default LinkedList;
