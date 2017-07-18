@@ -106,3 +106,34 @@ test('Can add element at a given index', () => {
   expect(list.elementAt(4)).toEqual(2);
   expect(list.elementAt(5)).toEqual(0);
 });
+
+test('Can remote element at a given index', () => {
+  const list = new LinkedList();
+  list.add(1);
+  list.add(5);
+  list.add(2);
+  list.add(0);
+  expect(list.elementAt(0)).toEqual(1);
+  expect(list.elementAt(1)).toEqual(5);
+  expect(list.elementAt(2)).toEqual(2);
+  expect(list.elementAt(3)).toEqual(0);
+  expect(list.size()).toEqual(4);
+
+  list.removeAt(2);
+  expect(list.size()).toEqual(3);
+  expect(list.elementAt(0)).toEqual(1);
+  expect(list.elementAt(1)).toEqual(5);
+  expect(list.elementAt(2)).toEqual(0);
+  function expectErrorToBeThrown(index) {
+    return index => list.removeAt(index);
+  }
+
+  expect(expectErrorToBeThrown(3)).toThrowError();
+  expect(expectErrorToBeThrown(4)).toThrowError();
+
+  list.removeAt(1);
+  expect(list.size()).toEqual(2);
+  expect(list.elementAt(0)).toEqual(1);
+  expect(list.elementAt(1)).toEqual(0);
+  expect(expectErrorToBeThrown(2)).toThrowError();
+});

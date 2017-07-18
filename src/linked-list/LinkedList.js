@@ -136,6 +136,43 @@ class LinkedList {
       }
     }
   }
+
+  removeAt(index: number): number {
+    let currentNode: ?Node = this.head;
+    let previousNode: ?Node;
+    let currentIndex: number = 0;
+
+    if (index < 0 || index >= this.length) {
+      throw new Error('Invalid index');
+    }
+
+    if (index === 0) {
+      if (currentNode && currentNode.next) {
+        this.head = currentNode.next;
+      } else {
+        throw new Error('No node after head');
+      }
+    } else {
+      while (currentIndex < index) {
+        currentIndex += 1;
+        previousNode = currentNode;
+
+        if (currentNode && currentNode.next) {
+          currentNode = currentNode.next;
+        } else {
+          throw new Error('Discontinuous list');
+        }
+      }
+
+      if (currentNode && previousNode && previousNode.next && currentNode.next) {
+        previousNode.next = currentNode.next;
+      } else {
+        throw new Error('Error with currentNode or previousNode');
+      }
+    }
+    this.length -= 1;
+    return currentNode.element;
+  }
 }
 
 export default LinkedList;
