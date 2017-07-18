@@ -3,33 +3,41 @@ import LinkedList, { Node } from './LinkedList';
 test('Can add to LinkedList', () => {
   const list = new LinkedList();
   list.add(1);
-  expect(list.getHead()).toEqual(new Node(1));
+  list.add(2);
+  expect(list.size()).toEqual(2);
 });
 
-test('Can do more with LinkedList', () => {
+test('Can remove from LinkedList', () => {
+  const list = new LinkedList();
+  list.add(1);
+  list.add(2);
+  list.remove(2);
+  expect(list.size()).toEqual(1);
+});
+
+test('Can indicate LinkedList isEmpty', () => {
+  const list = new LinkedList();
+  expect(list.isEmpty()).toBe(true);
+  list.add(1);
+  list.add(2);
+  list.remove(2);
+  expect(list.size()).toEqual(1);
+  expect(list.isEmpty()).toBe(false);
+  list.remove(1);
+  expect(list.isEmpty()).toBe(true);
+});
+
+test('Throws error when trying to remove from an empty list', () => {
   const conga = new LinkedList();
   conga.add('Kitten');
-  expect(conga.size()).toEqual(1);
   conga.add('Puppy');
-  expect(conga.size()).toEqual(2);
   conga.add('Dog');
-  expect(conga.size()).toEqual(3);
-  conga.add('Cat');
-  expect(conga.size()).toEqual(4);
-  conga.add('Fish');
-  expect(conga.size()).toEqual(5);
   conga.remove('Dog');
-  expect(conga.size()).toEqual(4);
   conga.remove('Kitten');
-  expect(conga.size()).toEqual(3);
   conga.remove('Puppy');
-  expect(conga.size()).toEqual(2);
-  conga.remove('Fish');
-  expect(conga.size()).toEqual(1);
-  conga.remove('Cat');
-  expect(conga.size()).toEqual(0);
   function expectErrorToBeThrown() {
     conga.remove('Cat');
   }
   expect(expectErrorToBeThrown).toThrowError('Cannot remove element from empty list');
+  expect(conga.isEmpty()).toBe(true);
 });

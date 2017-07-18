@@ -65,6 +65,10 @@ class LinkedList {
       throw new Error('Cannot remove element from empty list');
     }
   }
+
+  isEmpty() {
+    return this.length === 0;
+  }
 }
 
 export default LinkedList;
