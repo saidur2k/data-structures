@@ -1,3 +1,4 @@
+// @flow
 import BSTwithOrder from './BSTwithOrder';
 
 test('it can sort and calculate height', () => {

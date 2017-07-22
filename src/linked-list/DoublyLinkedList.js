@@ -127,6 +127,34 @@ class DoublyLinkedList<T> {
     }
     return reversedDLL;
   }
+
+  elementAt(index: number): ?Node<T> {
+    let currentNode = this.head;
+
+    for (let i = 0; i <= index; i += 1) {
+      if (i === index) {
+        return currentNode;
+      }
+
+      if (currentNode && currentNode.next) {
+        currentNode = currentNode.next;
+      } else {
+        currentNode = null;
+      }
+    }
+
+    return null;
+  }
+
+  elementDataAt(index: number): ?T {
+    const element = this.elementAt(index);
+
+    if (element) {
+      return element.getData();
+    }
+
+    return null;
+  }
 }
 
 export default DoublyLinkedList;

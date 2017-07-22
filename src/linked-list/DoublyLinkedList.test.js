@@ -1,3 +1,4 @@
+// @flow
 import DoublyLinkedList from './DoublyLinkedList';
 
 test('it has a head and a tail', () => {
@@ -12,12 +13,10 @@ test('it can add an element to a DLL', () => {
   myDoublyLinkedList.add(2);
   expect(myDoublyLinkedList.getHead()).toEqual({ data: 2, prev: null });
   myDoublyLinkedList.add(9);
-  expect(myDoublyLinkedList.getHead().getNext().getData()).toEqual(9);
-  expect(myDoublyLinkedList.getHead().getNext().getPrev().getData()).toEqual(2);
+  expect(myDoublyLinkedList.elementDataAt(1)).toEqual(9);
+  expect(myDoublyLinkedList.elementDataAt(0)).toEqual(2);
   myDoublyLinkedList.add(5);
-  const head = myDoublyLinkedList.getHead();
-  expect(head.getNext().getNext().getData()).toEqual(5);
-  expect(head.getNext().getNext().getPrev().getData()).toEqual(9);
+  expect(myDoublyLinkedList.elementDataAt(2)).toEqual(5);
 });
 
 test('it can remove an element from a DLL', () => {
@@ -36,9 +35,9 @@ test('it can remove the head element from a DLL', () => {
   myDoublyLinkedList.add(3);
   myDoublyLinkedList.add(5);
   myDoublyLinkedList.remove(2);
-  expect(myDoublyLinkedList.getHead().getData()).toEqual(3);
-  expect(myDoublyLinkedList.getHead().getNext().getData()).toEqual(5);
-  expect(myDoublyLinkedList.getHead().getPrev()).toEqual(null);
+  expect(myDoublyLinkedList.elementDataAt(0)).toEqual(3);
+  expect(myDoublyLinkedList.elementDataAt(1)).toEqual(5);
+  expect(myDoublyLinkedList.elementDataAt(-1)).toEqual(null);
 });
 
 test('it can remove any element element from a DLL', () => {
@@ -48,9 +47,9 @@ test('it can remove any element element from a DLL', () => {
   myDoublyLinkedList.add(4);
   myDoublyLinkedList.add(5);
   myDoublyLinkedList.remove(4);
-  expect(myDoublyLinkedList.getHead().getData()).toEqual(2);
-  expect(myDoublyLinkedList.getHead().getNext().getData()).toEqual(3);
-  expect(myDoublyLinkedList.getHead().getNext().getNext().getData()).toEqual(5);
+  expect(myDoublyLinkedList.elementDataAt(0)).toEqual(2);
+  expect(myDoublyLinkedList.elementDataAt(1)).toEqual(3);
+  expect(myDoublyLinkedList.elementDataAt(2)).toEqual(5);
 });
 
 test('it can remove last element from a DLL', () => {
@@ -60,7 +59,9 @@ test('it can remove last element from a DLL', () => {
   myDoublyLinkedList.add(4);
   myDoublyLinkedList.add(5);
   myDoublyLinkedList.remove(5);
-  expect(myDoublyLinkedList.getTail().getData()).toEqual(4);
+  expect(myDoublyLinkedList.getTail()).toMatchObject({ data: 4, next: null });
+  expect(myDoublyLinkedList.elementDataAt(2)).toEqual(4);
+  expect(myDoublyLinkedList.elementDataAt(3)).toEqual(null);
 });
 
 test('it can reverse an emtpy DLL', () => {
@@ -80,32 +81,13 @@ test('it can reverse a DLL', () => {
   const head = reversedDoublyLinkedList.getHead();
   const tail = reversedDoublyLinkedList.getTail();
 
-  const firstElementValueFromHead = head;
-  const firstElementValueFromTail = tail.getPrev().getPrev().getPrev();
-  const firstElementViaNextPrev = head.getNext().getPrev();
-  const secondElementFromHead = head.getNext();
-  const secondElementFromtail = tail.getPrev().getPrev();
-  const secondElementFromNextPrev = head.getNext().getNext().getPrev();
-  const thirdElementFromHead = head.getNext().getNext();
-  const thirdElementFromTail = tail.getPrev();
-  const thirdElementFromNextPrev = head.getNext().getNext().getNext().getPrev();
-  const fourthElementFromHead = head.getNext().getNext().getNext();
-  const fourthElementFromTail = tail;
-  function expectErrorFromHead() {
-    const lastElement = head.getNext().getNext().getNext().getNext();
-    return lastElement.getPrev();
-  }
+  const reversedFirstElementValueFromHead = head;
+  const reversedSecondElementFromHead = reversedDoublyLinkedList.elementDataAt(1);
+  const reversedthirdElementFromHead = reversedDoublyLinkedList.elementDataAt(2);
+  const reversedFourthElementFromTail = tail;
 
-  expect(firstElementValueFromHead.getData()).toEqual(5);
-  expect(firstElementValueFromTail.getData()).toEqual(5);
-  expect(firstElementViaNextPrev.getData()).toEqual(5);
-  expect(secondElementFromHead.getData()).toEqual(4);
-  expect(secondElementFromtail.getData()).toEqual(4);
-  expect(secondElementFromNextPrev.getData()).toEqual(4);
-  expect(thirdElementFromHead.getData()).toEqual(3);
-  expect(thirdElementFromTail.getData()).toEqual(3);
-  expect(thirdElementFromNextPrev.getData()).toEqual(3);
-  expect(fourthElementFromHead.getData()).toEqual(2);
-  expect(fourthElementFromTail.getData()).toEqual(2);
-  expect(expectErrorFromHead).toThrowError("Cannot read property 'getPrev' of undefined");
+  expect(reversedFirstElementValueFromHead).toMatchObject({ data: 5, prev: null });
+  expect(reversedSecondElementFromHead).toEqual(4);
+  expect(reversedthirdElementFromHead).toEqual(3);
+  expect(reversedFourthElementFromTail).toMatchObject({ data: 2 });
 });
