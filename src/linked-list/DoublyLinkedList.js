@@ -35,25 +35,23 @@ class DoublyLinkedList<T> {
   }
 
   getTail(): ?Node<T> {
-    let currentNode = this.head;
-    while (currentNode) {
-      if (currentNode.getNext() === null) {
-        return currentNode;
-      }
-      currentNode = currentNode.next;
-    }
-    return currentNode;
+    return this.tail;
   }
 
   add(data: T): void {
     let currentNode = this.head;
+    let newNode;
     if (this.head === null) {
-      this.head = new Node(data, null);
+      newNode = new Node(data, null);
+      this.head = newNode;
+      this.tail = newNode;
     }
 
     while (currentNode) {
       if (typeof currentNode.getNext() === 'undefined') {
-        currentNode.setNext(new Node(data, currentNode));
+        newNode = new Node(data, currentNode);
+        this.tail = newNode;
+        currentNode.setNext(newNode);
         return;
       }
       currentNode = currentNode.getNext();
@@ -64,20 +62,32 @@ class DoublyLinkedList<T> {
     let currentNode = this.head;
     let previousNode: ?Node<T>;
     let nextNode: ?Node<T>;
-    // console.log('here', JSON.stringify(currentNode, null, 2));
+
     if (currentNode === null) {
       throw new Error('Cannot remove from empty DLL');
     }
+
     if (this.head && this.head.getData() === data) {
       if (this.head.next) {
         this.head = this.head.next;
         this.head.prev = null;
       } else {
         this.head = null;
+        this.tail = null;
+      }
+    } else if (this.tail && this.tail.getData() === data) {
+      if (this.tail.prev) {
+        this.tail = this.tail.prev;
+        this.tail.setNext(null);
       }
     } else {
       while (currentNode && typeof currentNode !== 'undefined') {
-        previousNode = currentNode.getPrev();
+        if (currentNode.getPrev() === null) {
+          previousNode = null;
+        } else {
+          previousNode = currentNode.getPrev();
+        }
+
         if (currentNode.next && typeof currentNode.next !== 'undefined') {
           nextNode = currentNode.next;
         } else {
@@ -86,17 +96,17 @@ class DoublyLinkedList<T> {
 
         if (currentNode.getData() === data) {
           if (nextNode) {
-            console.log('HERExxx');
             currentNode = nextNode;
           } else {
-            console.log('HERE');
-            previousNode.setNext(null);
+            if (previousNode) {
+              previousNode.setNext(null);
+            }
             return;
           }
 
-          if (typeof currentNode.getPrev() === null) {
+          if (currentNode.getPrev() === null) {
             currentNode.setPrev(null);
-          } else {
+          } else if (currentNode && previousNode) {
             currentNode.setPrev(previousNode);
             previousNode.setNext(currentNode);
           }
@@ -106,6 +116,16 @@ class DoublyLinkedList<T> {
         currentNode = nextNode;
       }
     }
+  }
+
+  reverse(): DoublyLinkedList<T> {
+    const reversedDLL = new DoublyLinkedList();
+    let currentNode = this.tail;
+    while (currentNode) {
+      reversedDLL.add(currentNode.getData());
+      currentNode = currentNode.getPrev();
+    }
+    return reversedDLL;
   }
 }
 
