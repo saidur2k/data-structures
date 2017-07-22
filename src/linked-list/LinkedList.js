@@ -1,14 +1,14 @@
 // @flow
 
-class Node {
-  element: number;
-  next: ?Node = null;
+class Node<T> {
+  element: T;
+  next: ?Node<T> = null;
 
-  constructor(e: number) {
+  constructor(e: T) {
     this.element = e;
   }
 
-  getElement() {
+  getElement(): T {
     return this.element;
   }
 }
@@ -22,24 +22,24 @@ Linked list time complexity
 ║ Delete    ║ O(1)    ║ O(1)       ║
 */
 
-class LinkedList {
-  head: ?Node = null;
+class LinkedList<T> {
+  head: ?Node<T> = null;
   length: number = 0;
 
   size(): number {
     return this.length;
   }
 
-  getHead(): ?Node {
+  getHead(): ?Node<T> {
     return this.head;
   }
 
-  add(element: number): void {
-    const node: Node = new Node(element);
+  add(element: T): void {
+    const node: Node<T> = new Node(element);
     if (this.head === null) {
       this.head = node;
     } else {
-      let currentNode: ?Node = this.head;
+      let currentNode: ?Node<T> = this.head;
 
       if (currentNode) {
         while (currentNode.next != null) {
@@ -52,9 +52,9 @@ class LinkedList {
     this.length = this.length + 1;
   }
 
-  remove(element: number): void {
-    let currentNode: ?Node = this.head;
-    let previousNode: ?Node;
+  remove(element: T): void {
+    let currentNode: ?Node<T> = this.head;
+    let previousNode: ?Node<T>;
 
     if (this.size() > 0) {
       if (currentNode && currentNode === element) {
@@ -93,7 +93,7 @@ class LinkedList {
     return -1;
   }
 
-  elementAt(index: number): number {
+  elementAt(index: number): T {
     let currentNode = this.head;
     let count = 0;
     if (index > this.size() - 1 && this.size() > 0) {
@@ -114,10 +114,10 @@ class LinkedList {
     throw new Error('Element not found at index');
   }
 
-  addAt(index: number, element: number): void {
-    const nodeToAdd: Node = new Node(element);
-    let currentNode: ?Node = this.head;
-    let previousNode: ?Node;
+  addAt(index: number, element: T): void {
+    const nodeToAdd: Node<T> = new Node(element);
+    let currentNode: ?Node<T> = this.head;
+    let previousNode: ?Node<T>;
     let currentIndex: number = 0;
 
     if (index > this.length) {
@@ -146,9 +146,9 @@ class LinkedList {
     }
   }
 
-  removeAt(index: number): number {
-    let currentNode: ?Node = this.head;
-    let previousNode: ?Node;
+  removeAt(index: number): T {
+    let currentNode: ?Node<T> = this.head;
+    let previousNode: ?Node<T>;
     let currentIndex: number = 0;
 
     if (index < 0 || index >= this.length) {

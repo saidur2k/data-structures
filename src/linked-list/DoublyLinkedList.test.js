@@ -92,7 +92,8 @@ test('it can reverse a DLL', () => {
   const fourthElementFromHead = head.getNext().getNext().getNext();
   const fourthElementFromTail = tail;
   function expectErrorFromHead() {
-    return head.getNext().getNext().getNext().getNext().getPrev();
+    const lastElement = head.getNext().getNext().getNext().getNext();
+    return lastElement.getPrev();
   }
 
   expect(firstElementValueFromHead.getData()).toEqual(5);

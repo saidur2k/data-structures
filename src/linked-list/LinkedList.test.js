@@ -1,3 +1,4 @@
+// @flow
 import LinkedList from './LinkedList';
 
 test('Can add to LinkedList', () => {
@@ -125,7 +126,7 @@ test('Can remote element at a given index', () => {
   expect(list.elementAt(1)).toEqual(5);
   expect(list.elementAt(2)).toEqual(0);
   function expectErrorToBeThrown(index) {
-    return index => list.removeAt(index);
+    return () => list.removeAt(index);
   }
 
   expect(expectErrorToBeThrown(3)).toThrowError();
