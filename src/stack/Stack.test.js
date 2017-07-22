@@ -1,3 +1,4 @@
+// @flow
 import Stack from './Stack';
 
 test('Can push to stack', () => {
