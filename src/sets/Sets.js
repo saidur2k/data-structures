@@ -33,6 +33,17 @@ class Sets<T> {
 
     return false;
   }
+
+  intersection(setToCheck: Sets<T>): Sets<T> {
+    const interSectionSet = new Sets();
+    setToCheck.values().forEach((val) => {
+      if (this.has(val)) {
+        interSectionSet.add(val);
+      }
+    });
+
+    return interSectionSet;
+  }
 }
 
 export default Sets;

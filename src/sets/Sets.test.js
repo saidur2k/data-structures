@@ -45,3 +45,18 @@ it('can remove from a Set', () => {
   expect(mySet.values()).toEqual([]);
   expect(mySet.size()).toEqual(0);
 });
+
+test('Can return the intersection of two sets', () => {
+  const setA = new Sets();
+  setA.add('a');
+  setA.add('b');
+  setA.add('c');
+
+  const setB = new Sets();
+  setB.add('a');
+  setB.add('b');
+  setB.add('d');
+  setB.add('e');
+
+  expect(setB.intersection(setA).values()).toEqual(['a', 'b']);
+});
