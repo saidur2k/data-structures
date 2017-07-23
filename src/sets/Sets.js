@@ -44,6 +44,14 @@ class Sets<T> {
 
     return interSectionSet;
   }
+
+  union(setToAdd: Sets<T>): Sets<T> {
+    const unionSet = new Sets();
+    this.collection.forEach(item => unionSet.add(item));
+    setToAdd.values().forEach(item => unionSet.add(item));
+
+    return unionSet;
+  }
 }
 
 export default Sets;
