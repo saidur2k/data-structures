@@ -73,6 +73,22 @@ test('Can return the union of two sets', () => {
   setB.add('d');
   setB.add('e');
 
-  expect(setB.union(setA).values()).toEqual(['a', 'b', 'd', 'e', 'c']);
   expect(setA.union(setB).values()).toEqual(['a', 'b', 'c', 'd', 'e']);
+  expect(setB.union(setA).values()).toEqual(['a', 'b', 'd', 'e', 'c']);
+});
+
+test('Can return the difference of two sets', () => {
+  const setA = new Sets();
+  setA.add('a');
+  setA.add('b');
+  setA.add('c');
+
+  const setB = new Sets();
+  setB.add('a');
+  setB.add('b');
+  setB.add('d');
+  setB.add('e');
+
+  expect(setA.difference(setB).values()).toEqual(['c', 'd', 'e']);
+  expect(setB.difference(setA).values()).toEqual(['d', 'e', 'c']);
 });

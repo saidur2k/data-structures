@@ -52,6 +52,24 @@ class Sets<T> {
 
     return unionSet;
   }
+
+  difference(setToCheck: Sets<T>): Sets<T> {
+    const differenceSet = new Sets();
+
+    this.collection.forEach((item) => {
+      if (!setToCheck.has(item)) {
+        differenceSet.add(item);
+      }
+    });
+
+    setToCheck.values().forEach((item) => {
+      if (!this.has(item)) {
+        differenceSet.add(item);
+      }
+    });
+
+    return differenceSet;
+  }
 }
 
 export default Sets;
