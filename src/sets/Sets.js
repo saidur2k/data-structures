@@ -64,6 +64,10 @@ class Sets<T> {
 
     return differenceSet;
   }
+
+  subset(setToCheck: Sets<T>): boolean {
+    return this.collection.every(element => setToCheck.has(element));
+  }
 }
 
 export default Sets;

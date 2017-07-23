@@ -93,3 +93,29 @@ test('Can return the difference of two sets', () => {
   expect(setA.difference(setB).values()).toEqual(['c']);
   expect(setB.difference(setA).values()).toEqual(['d', 'e']);
 });
+
+test('Can check if a set is a subset of another set', () => {
+  const setA = new Sets();
+  setA.add('a');
+  setA.add('b');
+  setA.add('c');
+
+  const setB = new Sets();
+  setB.add('a');
+  setB.add('b');
+
+  expect(setB.subset(setA)).toEqual(true);
+  expect(setA.subset(setB)).toEqual(false);
+
+  const setC = new Sets();
+  setC.add('a');
+  setC.add('b');
+  setC.add('d');
+
+  expect(setC.subset(setA)).toEqual(false);
+
+  const setD = new Sets();
+  const setE = new Sets();
+  expect(setD.subset(setE)).toEqual(true);
+  expect(setE.subset(setD)).toEqual(true);
+});
