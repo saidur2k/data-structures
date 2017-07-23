@@ -58,6 +58,7 @@ test('Can return the intersection of two sets', () => {
   setB.add('d');
   setB.add('e');
 
+  expect(setA.intersection(setB).values()).toEqual(['a', 'b']);
   expect(setB.intersection(setA).values()).toEqual(['a', 'b']);
 });
 
@@ -89,6 +90,6 @@ test('Can return the difference of two sets', () => {
   setB.add('d');
   setB.add('e');
 
-  expect(setA.difference(setB).values()).toEqual(['c', 'd', 'e']);
-  expect(setB.difference(setA).values()).toEqual(['d', 'e', 'c']);
+  expect(setA.difference(setB).values()).toEqual(['c']);
+  expect(setB.difference(setA).values()).toEqual(['d', 'e']);
 });

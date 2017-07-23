@@ -62,12 +62,6 @@ class Sets<T> {
       }
     });
 
-    setToCheck.values().forEach((item) => {
-      if (!this.has(item)) {
-        differenceSet.add(item);
-      }
-    });
-
     return differenceSet;
   }
 }
