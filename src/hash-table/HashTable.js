@@ -26,9 +26,11 @@ class HashItem<T> {
 class HashTable<T> {
   storage: Array<Array<HashItem<T>>> = [];
   storageLimit: number;
+  hash: Function;
 
-  constructor(storageLimit: number) {
+  constructor(storageLimit: number, hash: Function) {
     this.storageLimit = storageLimit;
+    this.hash = hash;
   }
 
   values() {
@@ -36,7 +38,7 @@ class HashTable<T> {
   }
 
   add(key: string, value: T): boolean {
-    const index = hashFunction(key, this.storageLimit);
+    const index = this.hash(key, this.storageLimit);
     if (this.storage[index] === undefined) {
       this.storage[index] = [new HashItem(key, value)];
       return true;
@@ -60,7 +62,7 @@ class HashTable<T> {
   }
 
   remove(key: string): boolean {
-    const index = hashFunction(key, this.storageLimit);
+    const index = this.hash(key, this.storageLimit);
 
     if (this.storage[index]) {
       if (this.storage[index].length === 1) {
@@ -85,7 +87,7 @@ class HashTable<T> {
   }
 
   lookup(key: string): ?Array<T> {
-    const index = hashFunction(key, this.storageLimit);
+    const index = this.hash(key, this.storageLimit);
     if (this.storage[index] === undefined) {
       return null;
     }

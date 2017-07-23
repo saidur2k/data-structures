@@ -1,8 +1,8 @@
 // @flow
-import HashTable from './HashTable';
+import HashTable, { hashFunction } from './HashTable';
 
 test('it can add key/values to a HashTable', () => {
-  const myHash = new HashTable(2);
+  const myHash = new HashTable(2, hashFunction);
   myHash.add('a', 1);
   myHash.add('b', 2);
   myHash.add('c', 3);
@@ -34,7 +34,7 @@ test('it can add key/values to a HashTable', () => {
 });
 
 test('it can remove key/values from a HashTable', () => {
-  const myHash = new HashTable(2);
+  const myHash = new HashTable(2, hashFunction);
   myHash.add('a', 1);
   myHash.add('b', 2);
   myHash.add('c', 3);
@@ -55,7 +55,7 @@ test('it can remove key/values from a HashTable', () => {
 });
 
 test('it can lookup by key from a HashTable', () => {
-  const myHash = new HashTable(2);
+  const myHash = new HashTable(2, hashFunction);
   myHash.add('a', 1);
   myHash.add('b', 2);
   myHash.add('c', 3);
